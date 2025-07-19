@@ -75,3 +75,42 @@ export const fetchRatingByUserId = async (
   if (error) console.warn(error);
   return data;
 };
+
+export const fetchLanguagesByUserid = async (
+  userId: string = "95581512-60ef-431a-b3a1-0cd3143dce69"
+): Promise<Tables<"users_languages">[] | null> => {
+  const { data, error } = await supabase
+    .from("users_languages")
+    .select("*")
+    .eq("user_id", userId);
+  if (error) throw new Error(error.message);
+  return data;
+};
+
+export type VerificationSkillWithName = {
+  id: string;
+  skill_name: string;
+};
+
+export const fetchVerificationSkillsByUserId = async (
+  userId: string = "95581512-60ef-431a-b3a1-0cd3143dce69"
+): Promise<string[] | null> => {
+  const { data, error } = await supabase
+    .from("verification_skills")
+    .select(
+      `
+      skill_id
+    `
+    )
+    .eq("user_id", userId);
+
+  if (error) throw new Error(error.message);
+  const skillIds = data.map((item) => item.skill_id);
+  const { data: skillData, error: skillError } = await supabase
+    .from("skills")
+    .select("skill_name")
+    .in("id", skillIds);
+  if (skillError) throw new Error(skillError.message);
+
+  return skillData.map((item) => item.skill_name);
+};

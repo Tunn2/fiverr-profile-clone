@@ -1,5 +1,5 @@
 interface AboutSectionProp {
-  description: string;
+  description?: string | null;
 }
 
 const AboutSection: React.FC<AboutSectionProp> = ({ description }) => {

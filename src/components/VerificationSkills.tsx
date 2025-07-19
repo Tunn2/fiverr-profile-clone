@@ -1,7 +1,7 @@
 import SkillTag from "./CheckedSkill";
 
 interface VerificationSkillsProp {
-  skills: string[];
+  skills: string[] | null;
 }
 
 const VerificationSkills: React.FC<VerificationSkillsProp> = ({ skills }) => {
@@ -9,9 +9,10 @@ const VerificationSkills: React.FC<VerificationSkillsProp> = ({ skills }) => {
     <div className="">
       <p className="font-bold mb-3">Vetted for</p>
       <div className="flex gap-10">
-        {skills.map((skill, index) => (
-          <SkillTag key={index} skill_name={skill} />
-        ))}
+        {skills &&
+          skills.map((skill, index) => (
+            <SkillTag key={index} skill_name={skill} />
+          ))}
       </div>
     </div>
   );

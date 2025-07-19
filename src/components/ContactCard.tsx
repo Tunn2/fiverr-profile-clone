@@ -15,7 +15,10 @@ const ContactCard: React.FC<ContactCardProp> = (props) => {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Avatar className="h-12 w-12">
-            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+            <AvatarImage
+              src={props.avatarUrl || "https://github.com/shadcn.png"}
+              alt="@shadcn"
+            />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
           <p className="font-bold text-sm">{props.fullName}</p>
