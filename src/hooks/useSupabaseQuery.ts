@@ -1,14 +1,45 @@
-import { supabase } from "@/lib/supabaseClient";
+import {
+  fetchProfileById,
+  fetchRatingByUserId,
+  fetchSkillsByUserId,
+} from "@/lib/supabaseQueries";
+import { useQuery } from "@tanstack/react-query";
+import type { UseQueryResult } from "@tanstack/react-query";
 
-export const fetchUserProfile = async (userId: string) => {
-  if (!userId) throw new Error("User ID is required");
+export const useUserProfile = (userId?: string) => {
+  return useQuery({
+    queryKey: ["user-profile", userId],
+    queryFn: () => fetchProfileById(userId),
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+  });
+};
 
-  const { data, error } = await supabase
-    .from("users")
-    .select("*")
-    .eq("id", userId)
-    .single();
+// export const useUserServices = (userId?: string) => {
+//   return useQuery({
+//     queryKey: ["user-services", userId],
+//     queryFn: () => fetchServicesByUserId(userId),
+//     staleTime: 5 * 60 * 1000,
+//     gcTime: 10 * 60 * 1000,
+//   });
+// };
 
-  if (error) throw new Error(error.message);
-  return data;
+export const useUserSkills = (
+  userId?: string
+): UseQueryResult<string[] | undefined, Error> => {
+  return useQuery({
+    queryKey: ["user-skills", userId],
+    queryFn: () => fetchSkillsByUserId(userId),
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+  });
+};
+
+export const useUserRating = (userId?: string) => {
+  return useQuery({
+    queryKey: ["user-rating", userId],
+    queryFn: () => fetchRatingByUserId(userId),
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+  });
 };

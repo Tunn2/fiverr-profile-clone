@@ -3,22 +3,25 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import VerificationBadge from "./VerificationBadge";
 
 interface ProfileCardProp {
-  avatarUrl: string;
-  fullName: string;
-  username: string;
-  nation: string;
-  languages: string[];
-  rating: number;
-  numberOfComments: number;
-  isVerified: boolean;
-  title: string;
+  avatarUrl?: string | null;
+  fullName?: string | null;
+  username?: string | null;
+  nation?: string | null;
+  languages?: string[] | null;
+  rating?: number | null;
+  numberOfComments?: number | null;
+  isVerified?: boolean | null;
+  title?: string | null;
 }
 
 const ProfileCard: React.FC<ProfileCardProp> = (props) => {
   return (
     <div className="flex my-4">
       <Avatar className="h-44 w-auto">
-        <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+        <AvatarImage
+          src={props.avatarUrl || "https://github.com/shadcn.png"}
+          alt="@shadcn"
+        />
         <AvatarFallback>CN</AvatarFallback>
       </Avatar>
       <div className="flex flex-col ml-4 gap-3 justify-center">
@@ -44,8 +47,8 @@ const ProfileCard: React.FC<ProfileCardProp> = (props) => {
           </div>
           <div className="flex items-center gap-1 font-semibold">
             <MessageCircle size={20} absoluteStrokeWidth />
-            {props.languages.map((language, index) => {
-              if (index < props.languages.length - 1)
+            {props.languages?.map((language, index) => {
+              if (index < (props.languages?.length ?? 0) - 1)
                 return <p key={index}>{language + ", "}</p>;
               return <p key={index}>{language}</p>;
             })}

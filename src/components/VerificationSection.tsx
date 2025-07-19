@@ -1,5 +1,5 @@
 interface VerificationSectionProps {
-  username: string;
+  username?: string | null;
 }
 
 const VerificationSection: React.FC<VerificationSectionProps> = ({

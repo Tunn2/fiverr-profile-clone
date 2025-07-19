@@ -4,9 +4,9 @@ import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 
 interface ContactCardProp {
-  fullName: string;
-  price: number;
-  avatarUrl: string;
+  fullName?: string | null;
+  price?: number | null;
+  avatarUrl?: string | null;
 }
 
 const ContactCard: React.FC<ContactCardProp> = (props) => {

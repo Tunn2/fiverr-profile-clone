@@ -8,7 +8,11 @@ import ProfileCard from "@/components/ProfileCard";
 import SkillSection from "@/components/SkillSection";
 import VerificationSection from "@/components/VerificationSection";
 import VerificationSkills from "@/components/VerificationSkills";
-import { useUserProfile, useUserSkills } from "@/hooks/useProfileQuery";
+import {
+  useUserProfile,
+  useUserRating,
+  useUserSkills,
+} from "@/hooks/useSupabaseQuery";
 import { Heart } from "lucide-react";
 
 export default function Home() {
@@ -17,17 +21,17 @@ export default function Home() {
   const userProfile = useUserProfile();
   // const userServices = useUserServices();
   const userSkills = useUserSkills();
-
+  const userRating = useUserRating();
   const profile = {
-    avatarUrl: "",
-    nation: "Vietnam",
-    fullName: "Nguyễn Khánh Tùng",
-    username: "tungnk",
-    numberOfComments: 1,
-    rating: 1,
+    avatarUrl: userProfile.data?.avatar_url,
+    nation: userProfile.data?.user_nation,
+    fullName: userProfile.data?.full_name,
+    username: userProfile.data?.username,
+    numberOfComments: userRating.data?.total_comments,
+    rating: userRating.data?.avg_rating,
     languages: ["English", "Vietnamese"],
-    isVerified: true,
-    title: "UI UX Designer",
+    isVerified: userProfile.data?.is_verified,
+    title: userProfile.data?.user_title,
   };
 
   return (
@@ -40,8 +44,8 @@ export default function Home() {
             fullName={profile.fullName}
             languages={profile.languages}
             nation={profile.nation}
-            numberOfComments={1}
-            rating={1}
+            numberOfComments={userRating.data?.total_comments}
+            rating={userRating.data?.avg_rating}
             username={profile.username}
             isVerified={profile.isVerified}
             title={profile.title}
