@@ -1,6 +1,8 @@
 import { Tables } from "../../database.types";
 import { supabase } from "./../lib/supabaseClient";
 
+export type Service = Tables<"services">;
+
 export const fetchProfileById = async (
   userId: string = "95581512-60ef-431a-b3a1-0cd3143dce69"
 ): Promise<Tables<"users"> | null> => {
@@ -15,7 +17,7 @@ export const fetchProfileById = async (
 
 export const fetchServicesByUserId = async (
   userId: string = "95581512-60ef-431a-b3a1-0cd3143dce69"
-) => {
+): Promise<Service[] | null> => {
   const { data, error } = await supabase
     .from("services")
     .select("*")
@@ -85,11 +87,6 @@ export const fetchLanguagesByUserid = async (
     .eq("user_id", userId);
   if (error) throw new Error(error.message);
   return data;
-};
-
-export type VerificationSkillWithName = {
-  id: string;
-  skill_name: string;
 };
 
 export const fetchVerificationSkillsByUserId = async (

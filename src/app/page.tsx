@@ -1,11 +1,11 @@
 "use client";
 import AboutSection from "@/components/AboutSection";
-import ButtonComponent from "@/components/Button";
 import ContactCard from "@/components/ContactCard";
 import FiverrProGuarantee from "@/components/FiverrProGuarantee";
 import HeaderComponent from "@/components/Header";
 import ProfileCard from "@/components/ProfileCard";
 import SkillSection from "@/components/SkillSection";
+import { Button } from "@/components/ui/button";
 import VerificationSection from "@/components/VerificationSection";
 import VerificationSkills from "@/components/VerificationSkills";
 import {
@@ -64,8 +64,11 @@ export default function Home() {
         <div className="col-span-1">
           <div className="flex flex-col gap-8 h-full justify-center">
             <div className="flex justify-between">
-              <ButtonComponent content="More about me" />
-              <ButtonComponent content="Save" icon={<Heart size={16} />} />
+              <Button variant="outline">More about me</Button>
+              <Button variant="outline">
+                <Heart />
+                Save
+              </Button>
             </div>
             <ContactCard
               avatarUrl={profile.avatarUrl}
