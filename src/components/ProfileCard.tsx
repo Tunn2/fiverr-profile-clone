@@ -1,6 +1,6 @@
 import { MapPin, MessageCircle, Star } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import VerificationBadge from "./VerificationBadge";
+import { Badge } from "./ui/badge";
 
 interface ProfileCardProp {
   avatarUrl?: string | null;
@@ -28,7 +28,9 @@ const ProfileCard: React.FC<ProfileCardProp> = (props) => {
         <div className="flex items-center gap-3">
           <p className="font-bold text-xl">{props.fullName}</p>
           <p className="text-gray-400">@{props.username}</p>
-          <VerificationBadge />
+          <Badge className="text-black font-bold py-1 px-2 text-sm rounded-lg bg-indigo-200">
+            Vetted Pro
+          </Badge>
         </div>
         <div className="flex gap-1">
           <div className="flex items-center">

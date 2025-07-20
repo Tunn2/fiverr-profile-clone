@@ -1,4 +1,5 @@
-import SkillTag from "./CheckedSkill";
+import { Check } from "lucide-react";
+import { Badge } from "./ui/badge";
 
 interface VerificationSkillsProp {
   skills: string[] | null;
@@ -11,7 +12,14 @@ const VerificationSkills: React.FC<VerificationSkillsProp> = ({ skills }) => {
       <div className="flex gap-10">
         {skills &&
           skills.map((skill, index) => (
-            <SkillTag key={index} skill_name={skill} />
+            <Badge
+              variant={"outline"}
+              key={index}
+              className="font-normal py-1 px-2 text-md rounded-3xl"
+            >
+              <Check size={24} />
+              {skill}
+            </Badge>
           ))}
       </div>
     </div>
