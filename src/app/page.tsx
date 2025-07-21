@@ -5,6 +5,7 @@ import FiverrProGuarantee from "@/components/FiverrProGuarantee";
 import HeaderComponent from "@/components/Header";
 import ProfileCard from "@/components/ProfileCard";
 import ServiceCard from "@/components/ServiceCard";
+import ServiceSection from "@/components/ServiceSection";
 import SkillSection from "@/components/SkillSection";
 import { Button } from "@/components/ui/button";
 import VerificationSection from "@/components/VerificationSection";
@@ -13,16 +14,15 @@ import {
   useUserLanguages,
   useUserProfile,
   useUserRating,
+  useUserServices,
   useUserSkills,
   useVerificationSkills,
 } from "@/hooks/useSupabaseQuery";
-import { Heart } from "lucide-react";
+import { Heart, Section } from "lucide-react";
 
 export default function Home() {
-  // const checkedSkills = ["Web Design", "UX Design"];
-
   const userProfile = useUserProfile();
-  // const userServices = useUserServices();
+  const userServices = useUserServices();
   const userSkills = useUserSkills();
   const userRating = useUserRating();
   const userLanguages = useUserLanguages();
@@ -80,7 +80,8 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div>
+      <ServiceSection data={userServices.data ?? []} />
+      {/* <div>
         <ServiceCard
           data={{
             id: "",
@@ -92,7 +93,7 @@ export default function Home() {
             user_id: "",
           }}
         />
-      </div>
+      </div> */}
     </div>
   );
 }

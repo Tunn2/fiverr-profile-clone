@@ -1,7 +1,13 @@
-import { Tables } from "../../database.types";
+import { Database, Tables } from "../../database.types";
 import { supabase } from "./../lib/supabaseClient";
 
 export type Service = Tables<"services">;
+export type ServiceWithRating =
+  Database["public"]["Tables"]["services"]["Row"] & {
+    service_rating:
+      | Database["public"]["Tables"]["service_rating"]["Row"]
+      | null;
+  };
 
 export const fetchProfileById = async (
   userId: string = "95581512-60ef-431a-b3a1-0cd3143dce69"
@@ -17,11 +23,19 @@ export const fetchProfileById = async (
 
 export const fetchServicesByUserId = async (
   userId: string = "95581512-60ef-431a-b3a1-0cd3143dce69"
-): Promise<Service[] | null> => {
+): Promise<ServiceWithRating[]> => {
   const { data, error } = await supabase
     .from("services")
-    .select("*")
-    .eq("userId", userId);
+    .select(
+      `
+      *,
+      service_rating (
+        avg_rating,
+        number_of_comments
+      )
+    `
+    )
+    .eq("user_id", userId);
   if (error) throw new Error(error.message);
   return data;
 };

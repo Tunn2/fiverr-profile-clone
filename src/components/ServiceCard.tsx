@@ -1,4 +1,4 @@
-import { Service } from "@/lib/supabaseQueries";
+import { ServiceWithRating } from "@/lib/supabaseQueries";
 import {
   Card,
   CardAction,
@@ -12,12 +12,12 @@ import { Rating, RatingButton } from "./ui/shadcn-io/rating";
 import { Button } from "./ui/button";
 
 interface ServiceCardProp {
-  data: Service;
+  data: ServiceWithRating;
 }
 
 const ServiceCard = ({ data }: ServiceCardProp) => {
   return (
-    <Card className="w-1/3 gap-1">
+    <Card className="w-[350px] flex-shrink-0 gap-1">
       <CardContent className="flex gap-2">
         <Image
           src={
@@ -29,21 +29,29 @@ const ServiceCard = ({ data }: ServiceCardProp) => {
           className="w-[80px] h-[80px] object-cover"
         />
         <div className="flex flex-col gap-2">
-          <CardTitle>Website Builders Design</CardTitle>
-          <CardDescription>
-            I will design and build professional websites in webflow
-          </CardDescription>
-          <Rating defaultValue={1.5} readOnly>
-            {Array.from({ length: 5 }).map((_, index) => (
-              <RatingButton key={index} />
-            ))}
-          </Rating>
+          <CardTitle>{data.service_name}</CardTitle>
+          <CardDescription>{data.service_description} </CardDescription>
+          <div className="flex gap-1">
+            <Rating defaultValue={data.service_rating?.avg_rating} readOnly>
+              {Array.from({ length: 5 }).map((_, index) => (
+                <RatingButton key={index} />
+              ))}
+            </Rating>
+            <p className="text-lg font-bold">
+              {data.service_rating?.avg_rating}
+            </p>
+            <p className="text-lg text-gray-500">
+              ({data.service_rating?.number_of_comments})
+            </p>
+          </div>
         </div>
       </CardContent>
       <CardFooter className="justify-between">
         <div>
           <p>From</p>
-          <p className="text-gray-500 font-semibold">$200 / project</p>
+          <p className="text-gray-500 font-semibold">
+            ${data.service_price} / {data.pricing_type}
+          </p>
         </div>
         <CardAction>
           <Button variant={"outline"}>More details</Button>

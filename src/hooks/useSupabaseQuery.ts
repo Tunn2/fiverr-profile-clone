@@ -2,6 +2,7 @@ import {
   fetchLanguagesByUserid,
   fetchProfileById,
   fetchRatingByUserId,
+  fetchServicesByUserId,
   fetchSkillsByUserId,
   fetchVerificationSkillsByUserId,
 } from "@/lib/supabaseQueries";
@@ -17,14 +18,14 @@ export const useUserProfile = (userId?: string) => {
   });
 };
 
-// export const useUserServices = (userId?: string) => {
-//   return useQuery({
-//     queryKey: ["user-services", userId],
-//     queryFn: () => fetchServicesByUserId(userId),
-//     staleTime: 5 * 60 * 1000,
-//     gcTime: 10 * 60 * 1000,
-//   });
-// };
+export const useUserServices = (userId?: string) => {
+  return useQuery({
+    queryKey: ["user-services", userId],
+    queryFn: () => fetchServicesByUserId(userId),
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+  });
+};
 
 export const useUserSkills = (
   userId?: string
