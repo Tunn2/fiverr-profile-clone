@@ -1,5 +1,4 @@
 import { Check } from "lucide-react";
-import SkillTag, { SkillTagProp } from "./SkillTag";
 import { Badge } from "./ui/badge";
 
 interface SkillSectionProp {

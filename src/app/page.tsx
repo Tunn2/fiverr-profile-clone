@@ -4,6 +4,7 @@ import ContactCard from "@/components/ContactCard";
 import FiverrProGuarantee from "@/components/FiverrProGuarantee";
 import HeaderComponent from "@/components/Header";
 import ProfileCard from "@/components/ProfileCard";
+import ServiceCard from "@/components/ServiceCard";
 import SkillSection from "@/components/SkillSection";
 import { Button } from "@/components/ui/button";
 import VerificationSection from "@/components/VerificationSection";
@@ -75,10 +76,22 @@ export default function Home() {
               price={1}
               fullName={profile.fullName}
             />
-
             <FiverrProGuarantee />
           </div>
         </div>
+      </div>
+      <div>
+        <ServiceCard
+          data={{
+            id: "",
+            created_at: "",
+            pricing_type: "project",
+            service_name: "",
+            service_description: "",
+            service_price: 0,
+            user_id: "",
+          }}
+        />
       </div>
     </div>
   );
